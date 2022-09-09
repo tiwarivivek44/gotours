@@ -38,7 +38,7 @@ app.options('*', cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // SET SECURITY HTTP HEADERS //
-app.use(helmet());
+//app.use(helmet());
 
 // HTTP REQUEST MIDDLEWARE LOGGER - DEVELOPMENT//
 if (process.env.NODE_ENV === 'development') {
