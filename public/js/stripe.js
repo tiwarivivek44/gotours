@@ -1,14 +1,13 @@
 /* eslint-disable */
 import axios from 'axios';
-import Stripe from 'stripe';
+// import Stripe from 'stripe';
 import { showAlert } from './alerts';
 
 export const bookTour = async tourId => {
-  const stripe = Stripe(
-    'pk_test_51LfRoGSBv3gkrL92i8SQzWevZQ8Rgloq5wOUSnGnoNW3coUkbdli4Apy5PMshbKJ3MCX5NzcS7ue6s9ZfS29jYeK00CyKMhNys'
-  );
-
   try {
+    const stripe = await Stripe(
+      'pk_test_51LfRoGSBv3gkrL92i8SQzWevZQ8Rgloq5wOUSnGnoNW3coUkbdli4Apy5PMshbKJ3MCX5NzcS7ue6s9ZfS29jYeK00CyKMhNys'
+    );
     // 1) Get checkout session from endpoint/API
     const session = await axios(`/api/v1/bookings/checkout-session/${tourId}`);
 
