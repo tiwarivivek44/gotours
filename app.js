@@ -19,6 +19,7 @@ const bookingRouter = require('./routes/bookingRoutes');
 
 const app = express();
 
+app.enable('trust proxy');
 /////////////////////////////////////////////////////////////////////////////////
 // SERVER SIDE RENDERING
 /////////////////////////////////////////////////////////////////////////////////
@@ -73,7 +74,7 @@ app.use(
   })
 );
 
-//app.use(compression());
+app.use(compression());
 
 // TEST MIDDLEWARE //
 app.use((req, res, next) => {
