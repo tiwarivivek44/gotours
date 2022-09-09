@@ -38,9 +38,6 @@ app.options('*', cors());
 // Serving Static Files //
 app.use(express.static(path.join(__dirname, 'public')));
 
-// SET SECURITY HTTP HEADERS //
-// app.use(helmet());
-
 // HTTP REQUEST MIDDLEWARE LOGGER - DEVELOPMENT//
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -85,13 +82,22 @@ app.use(
   })
 );
 
-// app.use(compression());
+// app.use(compression({ threshold: 0 }));
 
 // TEST MIDDLEWARE //
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
+
+// SET SECURITY HTTP HEADERS //
+// app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false
+  })
+);
 
 /////////////////////////////////////////////////////////////////////////////////
 // 4. Mounting the routes
