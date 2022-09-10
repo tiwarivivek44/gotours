@@ -11,6 +11,7 @@ router.use(viewController.alerts);
 // ROUTES
 /////////////////////////////////////////////////////////////////////////////////
 router.get('/signup', viewController.getSignUpForm);
+router.get('/forgot-password', viewController.getForgotPasswordForm);
 router.get('/', authController.isLoggedIn, viewController.getOverview);
 router.get('/tour/:slug', authController.isLoggedIn, viewController.getTour);
 router.get('/login', authController.isLoggedIn, viewController.getLoginForm);
