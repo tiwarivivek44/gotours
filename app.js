@@ -91,8 +91,6 @@ app.use(
   })
 );
 
-// app.use(compression({ threshold: 0 }));
-
 // TEST MIDDLEWARE //
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -103,6 +101,7 @@ app.use((req, res, next) => {
 // 4. Mounting the routes
 /////////////////////////////////////////////////////////////////////////////////
 app.use('/', viewRouter);
+app.use(compression({ threshold: 0 }));
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
