@@ -35,6 +35,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(cors());
 app.options('*', cors());
 
+// SET SECURITY HTTP HEADERS //
+// app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false
+  })
+);
+
 // Serving Static Files //
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -82,27 +91,17 @@ app.use(
   })
 );
 
-// app.use(compression({ threshold: 0 }));
-
 // TEST MIDDLEWARE //
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
 
-// SET SECURITY HTTP HEADERS //
-// app.use(helmet());
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-    crossOriginEmbedderPolicy: false
-  })
-);
-
 /////////////////////////////////////////////////////////////////////////////////
 // 4. Mounting the routes
 /////////////////////////////////////////////////////////////////////////////////
 app.use('/', viewRouter);
+app.use(compression({ threshold: 0 }));
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
