@@ -63,6 +63,12 @@ exports.getLoginForm = catchAsync(async (req, res) => {
 
 exports.getForgotPasswordForm = catchAsync(async (req, res) => {
   res.status(200).render('forgotPassword', {
+    title: 'Forgot password'
+  });
+});
+
+exports.getResetPasswordForm = catchAsync(async (req, res) => {
+  res.status(200).render('resetPassword', {
     title: 'Reset your password'
   });
 });
