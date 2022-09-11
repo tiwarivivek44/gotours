@@ -73,6 +73,35 @@ exports.getResetPasswordForm = catchAsync(async (req, res) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////
+exports.getAboutUs = catchAsync(async (req, res) => {
+  res.status(200).render('aboutUs', {
+    title: 'About us'
+  });
+});
+
+exports.getDowloadApp = catchAsync(async (req, res) => {
+  res.status(200).render('downloadApp', {
+    title: 'Dowload App'
+  });
+});
+
+exports.getBecomeGuide = catchAsync(async (req, res) => {
+  res.status(200).render('becomeGuide', {
+    title: 'Become a guide'
+  });
+});
+exports.getCareers = catchAsync(async (req, res) => {
+  res.status(200).render('careers', {
+    title: 'Careers'
+  });
+});
+exports.getContact = catchAsync(async (req, res) => {
+  res.status(200).render('contact', {
+    title: 'Contact'
+  });
+});
+
 ///////////////////////////////////////////////////////////////////////////
 exports.getAccount = (req, res) => {
   res.status(200).render('account', {
