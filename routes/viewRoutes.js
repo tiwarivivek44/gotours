@@ -19,6 +19,12 @@ router.get('/reset-password', viewController.getResetPasswordForm);
 router.get('/me', authController.protect, viewController.getAccount);
 router.get('/my-bookings', authController.protect, viewController.getMyTours);
 
+router.get('/aboutus', viewController.getAboutUs);
+router.get('/downloadApp', viewController.getDowloadApp);
+router.get('/becomeGuide', viewController.getBecomeGuide);
+router.get('/careers', viewController.getCareers);
+router.get('/contact', viewController.getContact);
+
 router.post(
   '/submit-user-data',
   authController.protect,

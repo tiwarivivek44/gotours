@@ -1,0 +1,35 @@
+extends base
+
+block content
+  main.main
+    .becomeGuide-form
+      h2.heading-secondary.ma-bt-lg Become a guide
+
+      h2(style="text-align:justify") 
+        | Great to know that you looking for something exciting. 
+        br
+        | Please submit your details and we will contact you further! 
+        br
+        br
+
+      form.form--becomeGuide
+        .form__group
+          label.form__label(for='name') Name
+          input#name.form__input(type='name', placeholder='John Doe', required)
+        .form__group
+          label.form__label(for='email') Email address
+          input#email.form__input(type='email', placeholder='you@example.com', required)
+        .form-group
+          label.form__label(for='dob') Birth date
+          #datetimepicker1.input-group.date
+            input.form__input(type="date")
+            span.glyphicon.glyphicon-calendar
+        br
+        .form__group
+          label.form__label(for='experience') Years of experience
+          input#name.form__input(type='text', placeholder='Experience in years', required)
+        .form__group
+          label.form__label(for='interest') Tour interested in
+          input#name.form__input(type='text', placeholder='Type of tour')
+        .form__group
+          button.btn.btn--green Submit
