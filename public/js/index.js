@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { displayMap } from './mapbox';
 import { signup } from './signup';
-import { forgotPassword } from './forgotPassword';
+import { forgotPassword, resetPassword } from './forgotPassword';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
@@ -13,6 +13,7 @@ const signupForm = document.querySelector('.form--signup');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const forgotPasswordForm = document.querySelector('.form--forgotPassword');
+const resetPasswordForm = document.querySelector('.form--resetPassword');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
@@ -21,15 +22,6 @@ const bookBtn = document.getElementById('book-tour');
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
   displayMap(locations);
-}
-
-if (forgotPasswordForm) {
-  forgotPasswordForm.addEventListener('submit', e => {
-    const email = document.getElementById('email').value;
-
-    e.preventDefault();
-    forgotPassword(email);
-  });
 }
 
 if (signupForm) {
@@ -55,6 +47,29 @@ if (loginForm) {
 
 if (logOutBtn) {
   logOutBtn.addEventListener('click', logout);
+}
+
+if (forgotPasswordForm) {
+  forgotPasswordForm.addEventListener('submit', e => {
+    const email = document.getElementById('email').value;
+
+    e.preventDefault();
+    forgotPassword(email);
+    email = '';
+  });
+}
+
+if (resetPasswordForm) {
+  resetPasswordForm.addEventListener('submit', e => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const token = urlParams.get('resetToken');
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+
+    e.preventDefault();
+    resetPassword(token, password, passwordConfirm);
+  });
 }
 
 if (userDataForm) {

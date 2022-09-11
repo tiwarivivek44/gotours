@@ -17,7 +17,31 @@ export const forgotPassword = async email => {
     if (res.data.status === 'success') {
       showAlert('success', 'Password reset link sent to registered email!');
       window.setTimeout(() => {
-        location.assign('/', 5000);
+        location.assign('/', 3000);
+      });
+    }
+    // console.log(res);
+  } catch (err) {
+    showAlert('error', err.response.data.message);
+  }
+};
+
+// RESET PASSWORD //
+export const resetPassword = async (token, password, passwordConfirm) => {
+  try {
+    const res = await axios({
+      method: 'PATCH',
+      url: `/api/v1/users/resetPassword/${token}`,
+      data: {
+        password,
+        passwordConfirm
+      }
+    });
+
+    if (res.data.status === 'success') {
+      showAlert('success', 'Password updated successfully!');
+      window.setTimeout(() => {
+        location.assign('/', 3000);
       });
     }
     // console.log(res);

@@ -44,15 +44,12 @@ const createSendToken = (user, statusCode, req, res) => {
 // USER SIGNUP
 /////////////////////////////////////////////////////////////////////////////////
 exports.signup = catchAsync(async (req, res, next) => {
+  const user = User.findOne(req.body.email);
+
+  if (user)
+    return next(new AppError('User with this email already exists', 400));
+
   const newUser = await User.create(req.body);
-  //({
-  // name: req.body.name,
-  // email: req.body.email,
-  // password: req.body.password,
-  // passwordConfirm: req.body.passwordConfirm,
-  // role: req.body.role,
-  // passwordChangedAt: req.body.passwordChangedAt
-  //});
 
   // Send welcome email //
   const url = `${req.protocol}://${req.get('host')}/me`;
@@ -209,7 +206,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   try {
     const resetURL = `${req.protocol}://${req.get(
       'host'
-    )}/api/v1/users/resetPassword/${resetToken}`;
+    )}/reset-password?resetToken=${resetToken}`;
 
     await new Email(user, resetURL).sendPasswordReset();
 
