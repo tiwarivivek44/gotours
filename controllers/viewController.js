@@ -1,8 +1,11 @@
 const Tour = require('./../models/tourModel');
 const User = require('./../models/userModel');
+const Review = require('./../models/reviewModel');
 const Booking = require('./../models/bookingModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
+const Reviews = require('stripe/lib/resources/Reviews');
+const CountrySpecs = require('stripe/lib/resources/CountrySpecs');
 
 exports.alerts = (req, res, next) => {
   const { alert } = req.query;
@@ -124,6 +127,31 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
   res.status(200).render('overview', {
     title: 'My Tours',
     tours
+  });
+});
+
+///////////////////////////////////////////////////////////////////////////
+exports.getMyBillings = catchAsync(async (req, res, next) => {
+  // 1) Find all bookings
+  const bookings = await Booking.find({ user: req.user.id });
+
+  if (!bookings) return next();
+
+  res.status(200).render('billings', {
+    title: 'My Billings',
+    bookings
+  });
+});
+
+exports.getMyReviews = catchAsync(async (req, res, next) => {
+  // 1) Find all reviews for the user
+  const reviews = await Review.find({ user: req.user.id });
+
+  if (!reviews) return next();
+
+  res.status(200).render('reviews', {
+    title: 'My Reviews',
+    reviews
   });
 });
 

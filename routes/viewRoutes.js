@@ -18,6 +18,12 @@ router.get('/forgot-password', viewController.getForgotPasswordForm);
 router.get('/reset-password', viewController.getResetPasswordForm);
 router.get('/me', authController.protect, viewController.getAccount);
 router.get('/my-bookings', authController.protect, viewController.getMyTours);
+router.get('/my-reviews', authController.protect, viewController.getMyReviews);
+router.get(
+  '/my-billings',
+  authController.protect,
+  viewController.getMyBillings
+);
 
 router.get('/aboutus', viewController.getAboutUs);
 router.get('/downloadApp', viewController.getDowloadApp);

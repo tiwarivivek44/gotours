@@ -1,0 +1,27 @@
+extends base
+
+mixin rowdata(booking_Id, booking_Date,tour_Name, price, payment_Status)
+  td= `${booking_Id}`
+  td= `${booking_Date}`
+  td= `${tour_Name}`
+  td= `$${price}`
+  td= `${payment_Status === true ? 'Paid' : 'Not Paid'}`
+
+block content 
+  main.main
+    h2.heading-secondary.ma-bt-lg My Billings
+      .table-wrapper
+        table.table-myBilling(style='width:80%', border='1')
+          thead.table-header
+            tr
+              th Booking Id 
+              th Booking Date
+              th Tour Name
+              th Price
+              th Payment Status
+          tbody.table-body
+            each booking in bookings
+              tr
+                +rowdata(booking.id, booking.createdAt, booking.tour.name, booking.price, booking.paid)
+
+
