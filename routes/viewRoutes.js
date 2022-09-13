@@ -13,9 +13,36 @@ router.use(viewController.alerts);
 router.get('/', authController.isLoggedIn, viewController.getOverview);
 router.get('/tour/:slug', authController.isLoggedIn, viewController.getTour);
 router.get('/login', authController.isLoggedIn, viewController.getLoginForm);
-router.get('/signup', viewController.getSignUpForm);
-router.get('/forgot-password', viewController.getForgotPasswordForm);
-router.get('/reset-password', viewController.getResetPasswordForm);
+router.get('/signup', authController.isLoggedIn, viewController.getSignUpForm);
+router.get(
+  '/forgot-password',
+  authController.isLoggedIn,
+  viewController.getForgotPasswordForm
+);
+router.get(
+  '/reset-password',
+  authController.isLoggedIn,
+  viewController.getResetPasswordForm
+);
+
+/////////////////////////////////////////////////////////////////////////////////
+// Footer Routes
+/////////////////////////////////////////////////////////////////////////////////
+router.get('/aboutUs', authController.isLoggedIn, viewController.getAboutUs);
+router.get('/careers', authController.isLoggedIn, viewController.getCareers);
+router.get('/contact', authController.isLoggedIn, viewController.getContact);
+router.get(
+  '/downloadApp',
+  authController.isLoggedIn,
+  viewController.getDowloadApp
+);
+router.get(
+  '/becomeGuide',
+  authController.isLoggedIn,
+  viewController.getBecomeGuide
+);
+
+/////////////////////////////////////////////////////////////////////////////////
 router.get('/me', authController.protect, viewController.getAccount);
 router.get('/my-bookings', authController.protect, viewController.getMyTours);
 router.get('/my-reviews', authController.protect, viewController.getMyReviews);
@@ -24,20 +51,26 @@ router.get(
   authController.protect,
   viewController.getMyBillings
 );
-
-router.get('/aboutus', viewController.getAboutUs);
-router.get('/downloadApp', viewController.getDowloadApp);
-router.get('/becomeGuide', viewController.getBecomeGuide);
-router.get('/careers', viewController.getCareers);
-router.get('/contact', viewController.getContact);
-
 router.post(
   '/submit-user-data',
   authController.protect,
   viewController.updateUserData
 );
 
-/////////////////////////////////////////////////////////////////
-// MIDDLEWARE //
+/////////////////////////////////////////////////////////////////////////////////
+// Admin Routes
+/////////////////////////////////////////////////////////////////////////////////
+router.get('/manage-users', authController.protect, viewController.manageUser);
+
+router.get('/manage-tours', authController.protect, viewController.manageTour);
+
+router.get('/user-details/:id', authController.protect, viewController.getUser);
+
+router.get('/tour-details/:id', authController.protect, viewController.getTour);
+
+router.get('/create-user', authController.protect, viewController.createUser);
+
+router.get('/create-tour', authController.protect, viewController.createTour);
+
 /////////////////////////////////////////////////////////////////
 module.exports = router;

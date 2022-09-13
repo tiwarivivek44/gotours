@@ -6,6 +6,7 @@ import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
+import { getSearchedUsers, updateUser } from './admin';
 
 // DOM ELEMENTS //
 const mapBox = document.getElementById('map');
@@ -17,13 +18,17 @@ const resetPasswordForm = document.querySelector('.form--resetPassword');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
+const manageUserForm = document.querySelector('.form--manageUsers');
+const updateUserForm = document.querySelector('.form--updateUser');
 
 // DELEGATION //
+///////////////////////////////////////////////////////////////////////
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
   displayMap(locations);
 }
 
+///////////////////////////////////////////////////////////////////////
 if (signupForm) {
   signupForm.addEventListener('submit', e => {
     const name = document.getElementById('name').value;
@@ -36,6 +41,7 @@ if (signupForm) {
   });
 }
 
+///////////////////////////////////////////////////////////////////////
 if (loginForm) {
   loginForm.addEventListener('submit', e => {
     const email = document.getElementById('email').value;
@@ -45,10 +51,12 @@ if (loginForm) {
   });
 }
 
+///////////////////////////////////////////////////////////////////////
 if (logOutBtn) {
   logOutBtn.addEventListener('click', logout);
 }
 
+///////////////////////////////////////////////////////////////////////
 if (forgotPasswordForm) {
   forgotPasswordForm.addEventListener('submit', e => {
     const email = document.getElementById('email').value;
@@ -59,6 +67,7 @@ if (forgotPasswordForm) {
   });
 }
 
+///////////////////////////////////////////////////////////////////////
 if (resetPasswordForm) {
   resetPasswordForm.addEventListener('submit', e => {
     const queryString = window.location.search;
@@ -72,6 +81,7 @@ if (resetPasswordForm) {
   });
 }
 
+///////////////////////////////////////////////////////////////////////
 if (userDataForm) {
   userDataForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -84,6 +94,7 @@ if (userDataForm) {
   });
 }
 
+///////////////////////////////////////////////////////////////////////
 if (userPasswordForm) {
   userPasswordForm.addEventListener('submit', async e => {
     document.querySelector('.btn--save-password').textContent = 'Updating...';
@@ -103,6 +114,7 @@ if (userPasswordForm) {
   });
 }
 
+///////////////////////////////////////////////////////////////////////
 if (bookBtn)
   bookBtn.addEventListener('click', e => {
     e.target.textContent = 'Processing...';
@@ -110,5 +122,59 @@ if (bookBtn)
     bookTour(tourId);
   });
 
+///////////////////////////////////////////////////////////////////////
+if (manageUserForm)
+  manageUserForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const el = document.getElementById('searchCriteria');
+    const property = el.options[el.selectedIndex].value;
+    console.log(property);
+    const val = document.getElementById('searchValue').value;
+    console.log(val);
+
+    getSearchedUsers(property, val);
+  });
+
+if (updateUserForm)
+  updateUserForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const id = document.getElementById('id').value;
+    const photo = document.getElementById('photo').files[0]
+      ? document.getElementById('photo').files[0].name
+      : 'default.jpg';
+    const active =
+      document.getElementById('active').value === 'Active' ? true : false;
+
+    const form = new FormData();
+    form.append('name', document.getElementById('name').value);
+    form.append('email', document.getElementById('email').value);
+    form.append('role', document.getElementById('role').value);
+    form.append('photo', photo);
+    form.append('photo', active);
+
+    await updateUser(form, id);
+  });
+
+// if (manageUserForm)
+//   manageUserForm.addEventListener('submit', async e => {
+//     e.preventDefault();
+//     const id = document.getElementById('id').value;
+//     const photo = document.getElementById('photo').files[0]
+//       ? document.getElementById('photo').files[0].name
+//       : 'default.jpg';
+//     const name = document.getElementById('name').value;
+//     const email = document.getElementById('email').value;
+//     const role = document.getElementById('role').value;
+//     const active =
+//       document.getElementById('active').value === 'Active' ? true : false;
+
+//     console.log(id, photo, name, email, role, active);
+
+//     if (photo === 'default.jpg')
+//       await updateUser({ name, email, role, active }, id);
+//     else await updateUser({ photo, name, email, role, active }, id);
+//   });
+
+///////////////////////////////////////////////////////////////////////
 const alertMessage = document.querySelector('body').dataset.alert;
 if (alertMessage) showAlert('success', alertMessage, 20);

@@ -1,0 +1,60 @@
+extends base
+
+mixin navItem(link, text,icon, active)
+  li(class=`${active ? 'side-nav--active' : ''}`)
+    a(href=`${link}`)
+      svg
+        use(xlink:href=`/img/icons.svg#icon-${icon}`)
+      | #{text}
+
+block content 
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('#', 'Settings', 'settings', true)
+          +navItem('/my-bookings', 'My bookings', 'briefcase')
+          +navItem('/my-reviews', 'My reviews', 'star')
+          +navItem('/my-billings', 'Billing', 'credit-card')
+
+        - if(user.role === 'admin')
+          .admin-nav
+          h5.admin-nav__heading Admin
+          ul.side-nav
+            +navItem('/me', 'Manage tours', 'map')
+            +navItem('/search-users', 'Manage users', 'users')
+            +navItem('#', 'Manage reviews', 'star')
+            +navItem('#', 'Manage bookings', 'briefcase')
+
+      .user-view__content
+        .user-view__form-container
+
+          h2.heading-secondary.ma-bt-lg Manage Users
+          .manageUser-form
+            form.form.form--manageUser
+              .form__group.form__photo-upload
+                img.form__user-photo(src=`/img/users/${userdata.photo}`, alt='User Photo')
+                input.form__upload(type='file', accept='image/*', id='photo', name='photo' )
+                label(for='photo') Update photo
+              .form__group
+                label.form__label(for='id') User Id
+                input#id.form__input(type='name', value=`${userdata.id}`, required, readonly)
+              .form__group
+                label.form__label(for='name') Name
+                input#name.form__input(type='name', value=`${userdata.name}`, required)
+              .form__group
+                label.form__label(for='email') Email address
+                input#email.form__input(type='email', value=`${userdata.email}`, required)
+              .form__group
+                label.form__label(for='role') Role
+                input#role.form__input(type='role', value=`${userdata.role}`, required)
+              .form__group
+                label.form__label(for='active') Status
+                input#active.form__input(type='active', value=`${userdata.active === true ? 'Active' : 'Disabled'}`, required)
+              .form__group
+                button.btn.btn--green Update User
+                | &nbsp;&nbsp;&nbsp;&nbsp;
+                button.btn.btn--green Delete User
+
+
+

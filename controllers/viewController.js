@@ -4,8 +4,6 @@ const Review = require('./../models/reviewModel');
 const Booking = require('./../models/bookingModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
-const Reviews = require('stripe/lib/resources/Reviews');
-const CountrySpecs = require('stripe/lib/resources/CountrySpecs');
 
 exports.alerts = (req, res, next) => {
   const { alert } = req.query;
@@ -172,4 +170,63 @@ exports.updateUserData = catchAsync(async (req, res, next) => {
     title: 'Your account',
     user: updatedUser
   });
+});
+
+///////////////////////////////////////////////////////////////////////////
+// Admin
+///////////////////////////////////////////////////////////////////////////
+exports.manageUser = catchAsync(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).render('manageUsers', {
+    title: 'Manage Users',
+    users
+  });
+  next();
+});
+
+exports.manageTour = catchAsync(async (req, res, next) => {
+  const tours = await Tour.find();
+  res.status(200).render('manageTours', {
+    title: 'Manage Tours',
+    tours
+  });
+  next();
+});
+
+exports.getUser = catchAsync(async (req, res, next) => {
+  const userdata = await User.findById(req.params.id);
+
+  if (!userdata) return next();
+
+  res.status(200).render('userDetails', {
+    title: 'User Details',
+    userdata
+  });
+  next();
+});
+
+exports.getTour = catchAsync(async (req, res, next) => {
+  const tour = await Tour.findById(req.params.id);
+
+  if (!tour) return next();
+
+  res.status(200).render('tourDetails', {
+    title: 'Tour Details',
+    tour
+  });
+  next();
+});
+
+exports.createUser = catchAsync(async (req, res, next) => {
+  res.status(200).render('createUser', {
+    title: 'Create New User'
+  });
+  next();
+});
+
+exports.createTour = catchAsync(async (req, res, next) => {
+  res.status(200).render('createTour', {
+    title: 'Create New Tour'
+  });
+  next();
 });
