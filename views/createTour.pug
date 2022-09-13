@@ -1,0 +1,75 @@
+extends base
+
+mixin navItem(link, text,icon, active)
+  li(class=`${active ? 'side-nav--active' : ''}`)
+    a(href=`${link}`)
+      svg
+        use(xlink:href=`/img/icons.svg#icon-${icon}`)
+      | #{text}
+
+block content 
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('#', 'Settings', 'settings', true)
+          +navItem('/my-bookings', 'My bookings', 'briefcase')
+          +navItem('/my-reviews', 'My reviews', 'star')
+          +navItem('/my-billings', 'Billing', 'credit-card')
+
+        - if(user.role === 'admin')
+          .admin-nav
+          h5.admin-nav__heading Admin
+          ul.side-nav
+            +navItem('/me', 'Manage tours', 'map')
+            +navItem('/search-users', 'Manage users', 'users')
+            +navItem('#', 'Manage reviews', 'star')
+            +navItem('#', 'Manage bookings', 'briefcase')
+
+      .user-view__content
+        .user-view__form-container
+
+          h2.heading-secondary.ma-bt-lg Create New Tours
+          .manageTour-form
+            form.form.form--createTour
+              .form__group.form__photo-upload
+                img.form__user-photo(src='/img/tours/tour-1-cover.jpg', alt='Cover Photo')
+                input.form__upload(type='file', accept='image/*', id='photo', name='photo' )
+                label(for='photo') Update Cover photo
+              .form__group
+                label.form__label(for='name') Name
+                input#name.form__input(type='name', placeholder='e.g. The Mountain Biker', required)
+              .form__group
+                label.form__label(for='summary') Summary
+                input#summary.form__input(type='summary', placeholder='One line summary', required)
+              .form__group
+                label.form__label(for='description') Description
+                input#description.form__input(type='description', placeholder='Describe the tour', required)
+              .form__group
+                label.form__label(for='duration') Duration
+                input#duration.form__input(type='duration', placeholder='5', required)
+              .form__group
+                label.form__label(for='price') Price
+                input#price.form__input(type='price', placeholder='999', required)
+              .form__group
+                label.form__label(for='maxGroupSize') Max Group Size
+                input#maxGroupSize.form__input(type='maxGroupSize', placeholder='10', required)
+              .form__group
+                label.form__label(for='difficulty') Difficulty
+                input#difficulty.form__input(type='difficulty', placeholder='easy | medium | difficult', required)
+              .form__group
+                label.form__label(for='startLocation') Start Location
+                input#startLocation.form__input(type='startLocation', placeholder='Type | Coordinates', required)
+                input#startLocation.form__input(type='startLocation', placeholder='Description | Address', required)
+              .form__group
+                label.form__label(for='startDates') Start Dates
+                input#startDates.form__input(type='Date', placeholder=`${Date.now()}`, required)
+              .form__group
+                label.form__label(for='locations') Locations
+                input#locations.form__input(type='active', placeholder='Type | Coordinates | Description | Day', required)
+              .form__group
+                button.btn.btn--green Submit 
+
+
+
+

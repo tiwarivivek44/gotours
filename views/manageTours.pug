@@ -1,0 +1,71 @@
+extends base
+
+mixin navItem(link, text,icon, active)
+  li(class=`${active ? 'side-nav--active' : ''}`)
+    a(href=`${link}`)
+      svg
+        use(xlink:href=`/img/icons.svg#icon-${icon}`)
+      | #{text}
+
+mixin rowdata(tour)
+  td= `${tour.name}`
+  td= `${tour.duration} Days`
+  td= `$${tour.price}`
+  td= `${tour.summary}`
+  td
+    a(href=`/tour-details/${tour.id}`) Details
+
+block content 
+    main.main
+      .user-view
+        nav.user-view__menu
+          ul.side-nav
+            +navItem('#', 'Settings', 'settings', true)
+            +navItem('/my-bookings', 'My bookings', 'briefcase')
+            +navItem('/my-reviews', 'My reviews', 'star')
+            +navItem('/my-billings', 'Billing', 'credit-card')
+
+          - if(user.role === 'admin')
+            .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('/me', 'Manage tours', 'map')
+              +navItem('/search-users', 'Manage users', 'users')
+              +navItem('#', 'Manage reviews', 'star')
+              +navItem('#', 'Manage bookings', 'briefcase')
+
+        .user-view__content
+          .user-view__form-container
+            .searchUsers-form
+              h2.heading-secondary.ma-bt-lg Search Tours
+              form.form.form--searchUsers
+                label.form__label(for='searchCriteria') Search Criteria
+                select#searchCriteria.form__input.search-select(for='searchCriteria' required)
+                  option(value='0', selected) -- Select --
+                  option(value='name') Tour Name
+                  option(value='duration') duration
+                  option(value='price') Price
+                  option(value='location') Location 
+                label.form__label(for='searchValue') Value
+                input#searchValue.form__input(type='name', required)
+                br
+                button#searchUser.btn.btn--small.btn--green Search Tour
+                | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                button#createUser.btn.btn--small.btn--green(href='/create-tour')  Create Tour
+              br
+              .table-wrapper
+                table.table-allUsers(style='width:100%', border='1')
+                  thead.table-header
+                    tr 
+                      th Name
+                      th Duration
+                      th Price
+                      th Summary
+                      th Details
+                  - if(tours)
+                      tbody.table-body
+                      each tour in tours
+                        tr 
+                          +rowdata(tour)
+
+

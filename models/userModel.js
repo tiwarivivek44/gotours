@@ -50,9 +50,9 @@ const userSchema = new mongoose.Schema({
   passwordResetToken: String,
   passwordResetExpires: Date,
   active: {
-    type: 'boolean',
-    default: true,
-    select: false
+    type: Boolean,
+    default: true
+    //select: false
   }
 });
 
