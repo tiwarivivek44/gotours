@@ -7,11 +7,6 @@ mixin navItem(link, text,icon, active)
         use(xlink:href=`/img/icons.svg#icon-${icon}`)
       | #{text}
 
-mixin rowdata(userdata)
-  td= `${userdata.name}`
-  td= `${userdata.email}`
-  td
-    a(href=`/user-details/${userdata.id}`) Details
 
 block content 
     main.main
@@ -34,36 +29,35 @@ block content
 
         .user-view__content
           .user-view__form-container
-            .manageUsers-form
+            .searchUsers-form
               h2.heading-secondary.ma-bt-lg Manage Users
-              //- br
-              //- button#createUser.btn.btn--small.btn--green(href='/create-user' action='click' targets='_blank') Create User
-              form.form.form--manageUsers
-                label.form__label(for='searchCriteria') Search Criteria
-                select#searchCriteria.form__input.search-select(for='searchCriteria' required)
-                  option(value='0', selected) -- Select --
-                  option(value='name') Name
-                  option(value='role') Role
-                  option(value='email') Email
-                  option(value='active') Status 
-                label.form__label(for='searchValue') Value
-                input#searchValue.form__input(type='name', required)
-                br
-                button#searchUser.btn.btn--small.btn--green Search User
-                | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                button#createUser.btn.btn--small.btn--green(href='/create-user') Create User
+              form.form.form--searchUsers
+                .form__group
+                  label.form__label(for='searchCriteria') Search Criteria
+                  select#searchCriteria.form__input.search-select(for='searchCriteria' required)
+                    option(value='0', selected) -- Select --
+                    option(value='name') Name
+                    option(value='role') Role
+                    option(value='email') Email
+                    option(value='active') Status 
+                .form__group
+                  label.form__label(for='searchValue') Value
+                  input#searchValue.form__input(type='text', value = '', required)
+                .form__group
+                  a#search-user-btn.btn.btn--green(href='#') Search User
+                  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  a#create-user-btn.btn.btn--green(onclick="window.location.href='/create-user'") Create User
+              br    
+              h2.no_result_header(id='no-result-header' value ='')
               br
               .table-wrapper
-                table.table-allUsers(style='width:100%', border='1')
-                  thead.table-header
+                table.searchUsers-table(id='searchUsers-table' )
+                  thead.table-header(id='table-header' )
                     tr 
                       th Name
                       th Email
                       th Details
-                  - if(users)
-                      tbody.table-body
-                      each userdata in users
-                        tr 
-                          +rowdata(userdata)
+                      tbody.table-body(id='table-rows' )
+
 
 

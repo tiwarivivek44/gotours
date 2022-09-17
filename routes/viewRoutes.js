@@ -60,13 +60,29 @@ router.post(
 /////////////////////////////////////////////////////////////////////////////////
 // Admin Routes
 /////////////////////////////////////////////////////////////////////////////////
-router.get('/manage-users', authController.protect, viewController.manageUser);
+router.get(
+  '/manage-users',
+  authController.protect,
+  viewController.getManageUsers
+);
 
-router.get('/manage-tours', authController.protect, viewController.manageTour);
+router.get(
+  '/manage-tours',
+  authController.protect,
+  viewController.getManageTours
+);
 
-router.get('/user-details/:id', authController.protect, viewController.getUser);
+router.get(
+  '/user-details/:id',
+  authController.protect,
+  viewController.getUserDetails
+);
 
-router.get('/tour-details/:id', authController.protect, viewController.getTour);
+router.get(
+  '/tour-details/:id',
+  authController.protect,
+  viewController.getTourDetails
+);
 
 router.get('/create-user', authController.protect, viewController.createUser);
 

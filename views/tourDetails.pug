@@ -37,7 +37,7 @@ block content
 
           h2.heading-secondary.ma-bt-lg Manage Tours
           .manageTour-form
-            form.form.form--manageTour(readonly)
+            form.form.form--manageTour
               .form__group.form__photo-upload
                 img.form__user-photo(src=`/img/tours/${tour.imageCover}`, alt='Cover Photo')
                 input.form__upload(type='file', accept='image/*', id='photo', name='photo' )
@@ -68,8 +68,8 @@ block content
                 input#difficulty.form__input(type='difficulty', value=`${tour.difficulty}`, required)
               .form__group
                 label.form__label(for='startLocation') Start Location
-                input#startLocation.form__input(type='startLocation', value=`${tour.startLocation.type} | ${tour.startLocation.coordinates}`, required)
-                input#startLocation.form__input(type='startLocation', value=`${tour.startLocation.description} | ${tour.startLocation.address}`, required)
+                input#startLocation-0.form__input(type='startLocation', value=`${tour.startLocation.type} | ${tour.startLocation.coordinates}`, required)
+                input#startLocation-1.form__input(type='startLocation', value=`${tour.startLocation.description} | ${tour.startLocation.address}`, required)
               .form__group
                 label.form__label(for='startDates') Start Dates
                 each startDate in tour.startDates
@@ -78,6 +78,10 @@ block content
                 label.form__label(for='locations') Locations
                 each location in tour.locations
                   +locationItem(location)
+              .form__group
+                label.form__label(for='guides') Guides
+                input#guides.form__input(type='id', value=`${tour.guides[0].id}`, required)
+                input#guides.form__input(type='id', value=`${tour.guides[1].id}`, required)
               .form__group.form__photo-upload
                 img.form__user-photo(src=`/img/tours/${tour.images[0]}`, alt='Tour Photo')
                 img.form__user-photo(src=`/img/tours/${tour.images[1]}`, alt='Tour Photo')
@@ -85,9 +89,9 @@ block content
                 input.form__upload(type='file', accept='image/*', id='image', name='image' )
                 label(for='image') Update Images
               .form__group
-                button.btn.btn--green Update 
+                button#update-tour-btn.btn.btn--small.btn--green(type="button") Update Tour
                 | &nbsp;&nbsp;&nbsp;&nbsp;
-                button.btn.btn--green Delete
+                button#delete-tour-btn.btn.btn--small.btn--green Delete Tour 
 
 
 

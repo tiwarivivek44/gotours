@@ -7,14 +7,6 @@ mixin navItem(link, text,icon, active)
         use(xlink:href=`/img/icons.svg#icon-${icon}`)
       | #{text}
 
-mixin rowdata(tour)
-  td= `${tour.name}`
-  td= `${tour.duration} Days`
-  td= `$${tour.price}`
-  td= `${tour.summary}`
-  td
-    a(href=`/tour-details/${tour.id}`) Details
-
 block content 
     main.main
       .user-view
@@ -36,36 +28,36 @@ block content
 
         .user-view__content
           .user-view__form-container
-            .searchUsers-form
+            .searchTours-form
               h2.heading-secondary.ma-bt-lg Search Tours
-              form.form.form--searchUsers
-                label.form__label(for='searchCriteria') Search Criteria
-                select#searchCriteria.form__input.search-select(for='searchCriteria' required)
-                  option(value='0', selected) -- Select --
-                  option(value='name') Tour Name
-                  option(value='duration') duration
-                  option(value='price') Price
-                  option(value='location') Location 
-                label.form__label(for='searchValue') Value
-                input#searchValue.form__input(type='name', required)
-                br
-                button#searchUser.btn.btn--small.btn--green Search Tour
-                | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                button#createUser.btn.btn--small.btn--green(href='/create-tour')  Create Tour
+              form.form.form--searchTours
+                .form__group
+                  label.form__label(for='searchCriteria') Search Criteria
+                  select#searchCriteria.form__input.search-select(for='searchCriteria' required)
+                    option(value='0', selected) -- Select --
+                    option(value='name') Tour Name
+                    option(value='duration') Duration
+                    option(value='price') Price
+                    option(value='ratingsAverage') Average Ratings
+                    option(value='locations') Locations 
+                    option(value='startLocation') Start Location 
+                .form__group
+                  label.form__label(for='searchValue') Value
+                  input#searchValue.form__input(type='value', required)
+                .form__group
+                  a#search-tour-btn.btn.btn--green(href='#') Search Tour
+                  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  a#create-tour-btn.btn.btn--green(onclick="window.location.href='/create-tour'")  Create Tour
+              br    
+              h2(id='no-result-header' value ='')
               br
               .table-wrapper
-                table.table-allUsers(style='width:100%', border='1')
-                  thead.table-header
+                table.searchTours-table(id='searchTours-table' )
+                  thead.table-header(id='table-header' )
                     tr 
                       th Name
                       th Duration
                       th Price
                       th Summary
                       th Details
-                  - if(tours)
-                      tbody.table-body
-                      each tour in tours
-                        tr 
-                          +rowdata(tour)
-
-
+                      tbody.table-body(id='table-rows' )

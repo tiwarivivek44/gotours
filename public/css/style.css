@@ -1361,3 +1361,22 @@ body {
   scroll-snap-type: y mandatory;
   grid-template-columns: repeat(4, 1fr);
 }
+
+.searchUsers-table,
+.searchTours-table {
+  border: solid 1px;
+  display: none;
+}
+
+thead,
+tbody,
+th,
+td {
+  border: solid 1px;
+}
+
+h2 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #eb4d4b;
+}
