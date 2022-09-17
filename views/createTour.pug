@@ -30,7 +30,7 @@ block content
         .user-view__form-container
 
           h2.heading-secondary.ma-bt-lg Create New Tours
-          .manageTour-form
+          .createTour-form
             form.form.form--createTour
               .form__group.form__photo-upload
                 img.form__user-photo(src='/img/tours/tour-1-cover.jpg', alt='Cover Photo')
@@ -38,35 +38,43 @@ block content
                 label(for='photo') Update Cover photo
               .form__group
                 label.form__label(for='name') Name
-                input#name.form__input(type='name', placeholder='e.g. The Mountain Biker', required)
+                input#name.form__input(type='text', placeholder='e.g. The Mountain Biker', required)
               .form__group
                 label.form__label(for='summary') Summary
-                input#summary.form__input(type='summary', placeholder='One line summary', required)
+                input#summary.form__input(type='text', placeholder='One line summary', required)
               .form__group
                 label.form__label(for='description') Description
-                input#description.form__input(type='description', placeholder='Describe the tour', required)
+                input#description.form__input(type='text', placeholder='Describe the tour', required)
               .form__group
                 label.form__label(for='duration') Duration
-                input#duration.form__input(type='duration', placeholder='5', required)
+                input#duration.form__input(type='numeric', placeholder='5', required)
               .form__group
                 label.form__label(for='price') Price
-                input#price.form__input(type='price', placeholder='999', required)
+                input#price.form__input(type='numeric', placeholder='999', required)
               .form__group
                 label.form__label(for='maxGroupSize') Max Group Size
-                input#maxGroupSize.form__input(type='maxGroupSize', placeholder='10', required)
+                input#maxGroupSize.form__input(type='numeric', placeholder='10', required)
               .form__group
                 label.form__label(for='difficulty') Difficulty
-                input#difficulty.form__input(type='difficulty', placeholder='easy | medium | difficult', required)
+                input#difficulty.form__input(type='text', placeholder='easy | medium | difficult', required)
               .form__group
                 label.form__label(for='startLocation') Start Location
-                input#startLocation.form__input(type='startLocation', placeholder='Type | Coordinates', required)
-                input#startLocation.form__input(type='startLocation', placeholder='Description | Address', required)
+                input#startLocationType.form__input(type='text', placeholder='Type', required)
+                input#startLocationCoord.form__input(type='text', placeholder='Coordinates', required)
+                input#startLocationDesc.form__input(type='text', placeholder='Description', required)
+                input#startLocationAddr.form__input(type='text', placeholder='Address', required)
               .form__group
                 label.form__label(for='startDates') Start Dates
                 input#startDates.form__input(type='Date', placeholder=`${Date.now()}`, required)
               .form__group
                 label.form__label(for='locations') Locations
-                input#locations.form__input(type='active', placeholder='Type | Coordinates | Description | Day', required)
+                input#locationsType.form__input(type='text', placeholder='Type', required)
+                input#locationsCoord.form__input(type='text', placeholder='Coordinates', required)
+                input#locationsDesc.form__input(type='text', placeholder='Description', required)
+                input#locationsDay.form__input(type='text', placeholder='Day', required)
+              .form__group
+                label.form__label(for='guides') Assign Guides
+                input#guides.form__input(type='id', placeholder='Guides Id', required)
               .form__group
                 button.btn.btn--green Submit 
 

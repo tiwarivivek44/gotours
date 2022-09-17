@@ -73,12 +73,13 @@ exports.deleteUser = factory.deleteOne(User);
 // CREATE USER //
 /////////////////////////////////////////////////////////////////////////////////
 /* NOT REQUIRED AS WE HAVE SIGNUP FUNCTION */
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not defined'
-  });
-};
+// exports.createUser = (req, res) => {
+//   res.status(500).json({
+//     status: 'error',
+//     message: 'This route is not defined'
+//   });
+// };
+exports.createUser = factory.createOne(User);
 
 // GET ME //
 /////////////////////////////////////////////////////////////////////////////////

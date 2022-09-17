@@ -52,9 +52,9 @@ block content
                 label.form__label(for='active') Status
                 input#active.form__input(type='active', value=`${userdata.active === true ? 'Active' : 'Disabled'}`, required)
               .form__group
-                button.btn.btn--green Update User
+                button#update-user-btn.btn.btn--small.btn--green(type="button") Update User
                 | &nbsp;&nbsp;&nbsp;&nbsp;
-                button.btn.btn--green Delete User
+                button#delete-user-btn.btn.btn--small.btn--green Delete User   
 
 
 
