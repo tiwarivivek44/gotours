@@ -12,7 +12,7 @@ export const createReview = async form => {
     });
 
     if (res.data.status === 'success') {
-      showAlert('success', ' User created successfully!');
+      showAlert('success', 'Thanks you!');
     }
   } catch (err) {
     console.log(err);

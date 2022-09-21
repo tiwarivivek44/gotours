@@ -12718,7 +12718,7 @@ var createReview = /*#__PURE__*/function () {
             res = _context.sent;
 
             if (res.data.status === 'success') {
-              (0, _alerts.showAlert)('success', ' User created successfully!');
+              (0, _alerts.showAlert)('success', 'Thanks you!');
             }
 
             _context.next = 11;
@@ -13633,7 +13633,7 @@ if (rateTour) {
         userId = _e$target$dataset.userId;
     var review = prompt('Please review the tour!');
     var form = {
-      review: review,
+      review: review ? review : 'Not reviewed yet',
       rating: ratingVal,
       tour: tourId,
       user: userId

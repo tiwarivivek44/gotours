@@ -131,7 +131,7 @@ if (rateTour) {
     const review = prompt('Please review the tour!');
 
     const form = {
-      review: review,
+      review: review ? review : 'Not reviewed yet',
       rating: ratingVal,
       tour: tourId,
       user: userId
