@@ -6,6 +6,7 @@ import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
+import { createReview } from './userReview';
 import {
   getSearchedUsers,
   getSearchedTours,
@@ -39,6 +40,8 @@ const searchTourForm = document.querySelector('.form--searchTours');
 const createTourForm = document.querySelector('.createTour-form');
 const updateTourBtn = document.getElementById('update-tour-btn');
 const deleteTourBtn = document.getElementById('delete-tour-btn');
+
+const rateTour = document.querySelector('.input-container');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // REUSABLE FUNCTIONS
@@ -84,6 +87,58 @@ const deleteTourFn = async e => {
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
   displayMap(locations);
+}
+
+if (rateTour) {
+  let stars = document.querySelectorAll('.fa-star-o');
+  let totalStar = 0;
+  stars.forEach((star, index) => {
+    star.dataset.rating = index + 1;
+    star.addEventListener('mouseover', onMouseOver);
+    star.addEventListener('click', onClick);
+    star.addEventListener('mouseleave', onMouseLeave);
+  });
+
+  function onMouseOver(e) {
+    const ratingVal = e.target.dataset.rating;
+    if (!ratingVal) {
+      return;
+    } else {
+      fill(ratingVal);
+    }
+  }
+
+  function fill(ratingVal) {
+    for (let i = 0; i < 5; i++) {
+      if (i < ratingVal) {
+        stars[i].classList.replace('fa-star-o', 'fa-star');
+      } else {
+        stars[i].classList.replace('fa-star', 'fa-star-o');
+      }
+    }
+  }
+
+  function onMouseLeave(e) {
+    fill(totalStar);
+  }
+
+  function onClick(e) {
+    const ratingVal = e.target.dataset.rating;
+    totalStar = ratingVal;
+    fill(totalStar);
+
+    const { tourId, userId } = e.target.dataset;
+    const review = prompt('Please review the tour!');
+
+    const form = {
+      review: review,
+      rating: ratingVal,
+      tour: tourId,
+      user: userId
+    };
+
+    createReview(form);
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////
