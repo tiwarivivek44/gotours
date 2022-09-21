@@ -4,6 +4,7 @@ include _reviewCard
 block append head
     script(src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js")
     link(href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet")
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet")
     
 mixin overviewBox(label, text, icon)
     .overview-box__detail
@@ -41,8 +42,16 @@ block content
                     +overviewBox('Next date', date, 'calendar')
                     +overviewBox('Difficulty', tour.difficulty, 'trending-up')
                     +overviewBox('Participants', `${tour.maxGroupSize} People`, 'user')
-                    +overviewBox('Rating', `${tour.ratingsAverage} / 5`, 'star')
+                    +overviewBox('Rating', `${tour.ratingsAverage} / 5`, 'star')       
 
+                    if user
+                        h1 Rate this tour!
+                        .input-container
+                            i.fa.fa-star-o(data-tour-id=`${tour.id}`, data-user-id=`${user.id}`)
+                            i.fa.fa-star-o(data-tour-id=`${tour.id}`, data-user-id=`${user.id}`)
+                            i.fa.fa-star-o(data-tour-id=`${tour.id}`, data-user-id=`${user.id}`)
+                            i.fa.fa-star-o(data-tour-id=`${tour.id}`, data-user-id=`${user.id}`)
+                            i.fa.fa-star-o(data-tour-id=`${tour.id}`, data-user-id=`${user.id}`)
 
                 .overview-box__group
                     h2.heading-secondary.ma-bt-lg Your tour guides
