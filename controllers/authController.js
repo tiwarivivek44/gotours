@@ -44,7 +44,7 @@ const createSendToken = (user, statusCode, req, res) => {
 // USER SIGNUP
 /////////////////////////////////////////////////////////////////////////////////
 exports.signup = catchAsync(async (req, res, next) => {
-  const user = User.findOne(req.body.email);
+  const user = await User.findOne({ email: req.body.email });
 
   if (user)
     return next(new AppError('User with this email already exists', 400));
