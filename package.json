@@ -15,25 +15,25 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
-    "axios": "^0.27.2",
+    "axios": "^1.6.7",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1",
+    "express": "^4.18.2",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^6.5.2",
     "helmet": "^6.0.0",
     "hpp": "^0.2.3",
     "html-to-text": "^8.2.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^5.13.14",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.7.8",
     "pug": "^3.0.2",
-    "sharp": "^0.31.0",
+    "sharp": "^0.33.2",
     "slugify": "^1.6.5",
     "stripe": "^7.0.0",
     "validator": "^13.7.0",
@@ -52,6 +52,6 @@
     "prettier": "^1.19.1"
   },
   "engines": {
-    "node": "^14"
+    "node": "^20"
   }
 }
